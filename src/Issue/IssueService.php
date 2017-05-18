@@ -75,7 +75,7 @@ class IssueService extends \JiraRestApi\JiraClient
         $issue->fields = $issueField;
 
         $data = json_encode($issue);
-
+        
         $this->log->addInfo("Create Issue=\n".$data);
 
         $ret = $this->exec($this->uri, $data, 'POST');
@@ -516,6 +516,22 @@ class IssueService extends \JiraRestApi\JiraClient
         );
 
         return $priorities;
+    }
+
+    /**
+     * Get all resolution.
+     *
+     * @return array of resolution class
+     */
+    public function getAllResolutions()
+    {
+        $ret = $this->exec('resolution', null);
+
+        $resolutions = $this->json_mapper->mapArray(
+             json_decode($ret, false), new \ArrayObject(), '\JiraRestApi\Issue\Resolution'
+        );
+
+        return $resolutions;
     }
 
     /**

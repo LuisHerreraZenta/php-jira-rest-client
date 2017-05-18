@@ -170,7 +170,7 @@ class JiraClient
                 curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
             }
         }
-
+        
         $this->authorization($ch);
 
         curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, $this->getConfiguration()->isCurlOptSslVerifyHost());

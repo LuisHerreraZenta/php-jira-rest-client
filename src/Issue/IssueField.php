@@ -15,7 +15,7 @@ class IssueField implements \JsonSerializable
 
             $this->assignee = new \JiraRestApi\Issue\Reporter();
             $this->priority = new \JiraRestApi\Issue\Priority();
-            $this->resolution = new \JiraRestApi\Issue\Resolution();
+            //$this->resolution = new \JiraRestApi\Issue\Resolution();
             $this->versions = array();
 
             $this->issuetype = new \JiraRestApi\Issue\IssueType();
@@ -141,7 +141,7 @@ class IssueField implements \JsonSerializable
      * @param string $name
      *
      * @return $this
-     */
+     
     public function setResolutionId($id)
     {
         if (is_null($this->resolution)) {
@@ -151,7 +151,7 @@ class IssueField implements \JsonSerializable
         $this->resolution->id = $id;
 
         return $this;
-    }
+    }*/
 
     /**
      * @param string|null $description

@@ -48,6 +48,26 @@ class IssueService extends \JiraRestApi\JiraClient
         );
     }
 
+
+    public function getLastIssue($issueIdOrKey, $paramArray = [], $issueObject = null)
+    {
+        $issueObject = ($issueObject) ? $issueObject : new Issue();
+
+        $queryParam = '?';
+
+        foreach($paramArray as $key => $value) {
+            $queryParam .= $key . '=' . join(',', $value) . '&';
+        }
+
+        $ret = $this->exec($this->uri . '/' . $issueIdOrKey . $queryParam, null);
+
+        $this->log->addInfo("Result=\n".$ret);
+
+        return $issue = $this->json_mapper->map(
+            json_decode($ret), $issueObject
+        );
+    }
+
    public function getAllIssues($issueObject = null)
     {
         $issueObject = ($issueObject) ? $issueObject : new Issue();
@@ -168,6 +188,22 @@ class IssueService extends \JiraRestApi\JiraClient
         }
 
         return $resArr;
+    }
+
+ /**
+     * obtiene los archivos por issues.
+     *
+     * @param issueIdOrKey Issue id or key
+     * 
+     *
+     * @return
+     */
+    public function getAttachments($issueIdOrKey){
+
+        $ret = $this->exec($this->uri."/$issueIdOrKey?fields=attachment");
+        $ret = json_decode($ret);
+
+        return $ret;
     }
 
     /**

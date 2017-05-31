@@ -32,6 +32,20 @@ class UserService extends \JiraRestApi\JiraClient
        );
    }
 
+   public function getLogin($paramArray)
+   {
+     $uri2 = '/user?';
+       $queryParam = http_build_query($paramArray);
+
+       $ret = $this->exec($this->uri2.$queryParam, null);
+
+       $this->log->addInfo("Result=\n".$ret);
+
+       return $this->json_mapper->map(
+               json_decode($ret), new User()
+       );
+   }
+
    public function search($param)
    {
        //$queryParam = '?'.http_build_query($paramArray);
